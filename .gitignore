@@ -42,6 +42,7 @@ dist/
 
 # dotenv environment variables
 .env
+vite-env.d.ts
 env.local
 env.*.local
 # backend/.env
