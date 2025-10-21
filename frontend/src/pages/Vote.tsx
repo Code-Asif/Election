@@ -8,7 +8,7 @@ import { GlowingCard } from '../components/3d/GlowingCard'
 import { PulseButton } from '../components/3d/PulseButton'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { formatDate, formatTimeRemaining, getElectionStatus } from '../lib/utils'
-import { Vote as VoteIcon, CheckCircle, Clock, Users } from 'lucide-react'
+import { Vote as VoteIcon, CheckCircle, Clock } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export function Vote() {
@@ -36,14 +36,6 @@ export function Vote() {
     enabled: !!electionId,
   })
 
-  const castVoteMutation = useQuery({
-    queryKey: ['cast-vote'],
-    queryFn: () => votesApi.cast({
-      electionId: electionId!,
-      candidateId: selectedCandidate!
-    }),
-    enabled: false,
-  })
 
   // Redirect to results if user has already voted (must be before any returns)
   React.useEffect(() => {
@@ -111,7 +103,6 @@ export function Vote() {
   const electionData = election.data
   const status = getElectionStatus(electionData.startAt, electionData.endAt)
   const isRunning = status === 'running'
-  const hasVoted = voteStatus?.data?.hasVoted
 
   if (!isRunning) {
     return (
@@ -194,7 +185,7 @@ export function Vote() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {candidates?.data?.map((candidate, index) => (
+            {candidates?.data?.map((candidate: any, index: number) => (
               <motion.div
                 key={candidate._id}
                 initial={{ opacity: 0, y: 30 }}

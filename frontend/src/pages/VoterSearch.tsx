@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
@@ -16,7 +16,7 @@ import toast from 'react-hot-toast'
 export function VoterSearch() {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedElection, setSelectedElection] = useState<any>(null)
+  
 
   const { data: elections, isLoading } = useQuery({
     queryKey: ['elections', 'public'],
@@ -25,7 +25,7 @@ export function VoterSearch() {
 
   const electionsList = elections?.data || elections || []
   
-  const filteredElections = electionsList.filter(election =>
+  const filteredElections = electionsList.filter((election: any) =>
     election.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     election.description?.toLowerCase().includes(searchTerm.toLowerCase())
   )
@@ -145,7 +145,7 @@ export function VoterSearch() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {filteredElections.map((election, index) => {
+            {filteredElections.map((election: any, index: number) => {
               const status = getElectionStatus(election.startAt, election.endAt)
               const isRunning = status === 'running'
               const isEnded = status === 'ended'
