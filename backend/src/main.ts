@@ -13,7 +13,24 @@ async function bootstrap() {
   // Security middleware
   app.use(helmet());
   app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      const allowedOrigins: (string | RegExp)[] = [
+        process.env.FRONTEND_URL || '',
+        'http://localhost:3000',
+        /\.vercel\.app$/,
+      ].filter(Boolean) as (string | RegExp)[];
+
+      // Allow non-browser requests (no origin)
+      if (!origin) return callback(null, true);
+
+      const isAllowed = allowedOrigins.some((o) =>
+        o instanceof RegExp ? o.test(origin) : o === origin,
+      );
+
+      return isAllowed
+        ? callback(null, true)
+        : callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   }));
 

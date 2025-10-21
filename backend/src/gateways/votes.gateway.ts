@@ -5,7 +5,21 @@ import { VotesService } from '../votes/votes.service';
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      const allowedOrigins: (string | RegExp)[] = [
+        process.env.FRONTEND_URL || '',
+        'http://localhost:3000',
+        /\.vercel\.app$/,
+      ].filter(Boolean) as (string | RegExp)[];
+
+      if (!origin) return callback(null, true);
+
+      const isAllowed = allowedOrigins.some((o) =>
+        o instanceof RegExp ? o.test(origin) : o === origin,
+      );
+
+      return isAllowed ? callback(null, true) : callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   },
 })
