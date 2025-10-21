@@ -21,7 +21,7 @@ export function Profile() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { data: profile, refetch } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ['profile'],
     queryFn: () => usersApi.getProfile(),
   })

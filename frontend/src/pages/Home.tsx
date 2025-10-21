@@ -1,4 +1,4 @@
-import React from 'react'
+ 
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
@@ -11,18 +11,18 @@ import { formatDate, formatTimeRemaining, getElectionStatus } from '../lib/utils
 import { Clock, Users, TrendingUp, Shield, Zap, BarChart3 } from 'lucide-react'
 
 export function Home() {
-  const { data: elections, isLoading } = useQuery({
+  const { data: elections } = useQuery({
     queryKey: ['elections', 'public'],
     queryFn: () => electionsApi.getAll({ public: true }),
   })
 
   const electionsList = elections?.data || elections || []
 
-  const runningElections = electionsList.filter(election => 
+  const runningElections = electionsList.filter((election: any) => 
     getElectionStatus(election.startAt, election.endAt) === 'running'
   )
 
-  const recentElections = electionsList.filter(election => 
+  const recentElections = electionsList.filter((election: any) => 
     getElectionStatus(election.startAt, election.endAt) === 'ended'
   ).slice(0, 3)
 
@@ -154,7 +154,7 @@ export function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {runningElections.map((election, index) => (
+              {runningElections.map((election: any, index: number) => (
                 <motion.div
                   key={election._id}
                   initial={{ opacity: 0, y: 30 }}
@@ -214,7 +214,7 @@ export function Home() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {recentElections.map((election, index) => (
+              {recentElections.map((election: any, index: number) => (
                 <motion.div
                   key={election._id}
                   initial={{ opacity: 0, y: 30 }}

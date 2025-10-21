@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { electionsApi } from '../lib/api'
 import { FloatingCard } from '../components/3d/FloatingCard'
-import { GlowingCard } from '../components/3d/GlowingCard'
 import { PulseButton } from '../components/3d/PulseButton'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input'
@@ -20,7 +19,7 @@ export function Elections() {
     queryFn: () => electionsApi.getAll(),
   })
 
-  const filteredElections = elections?.data?.filter(election => {
+  const filteredElections = elections?.data?.filter((election: any) => {
     const matchesSearch = election.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         election.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesFilter = filter === 'all' || 
@@ -129,7 +128,7 @@ export function Elections() {
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredElections.map((election, index) => {
+            {filteredElections.map((election: any, index: number) => {
               const status = getElectionStatus(election.startAt, election.endAt)
               const isRunning = status === 'running'
               const isEnded = status === 'ended'
