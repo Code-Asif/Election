@@ -45,8 +45,8 @@ dist/
 vite-env.d.ts
 env.local
 env.*.local
-# backend/.env
-# frontend/.env
+backend/.env
+frontend/.env
 
 # NestJS specific
 /.nest
