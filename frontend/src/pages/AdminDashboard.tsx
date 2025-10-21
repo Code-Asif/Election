@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -9,7 +9,7 @@ import { GlowingCard } from '../components/3d/GlowingCard'
 import { PulseButton } from '../components/3d/PulseButton'
 import { ShareElectionModal } from '../components/ShareElectionModal'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
-import { formatDate, formatTimeRemaining, getElectionStatus } from '../lib/utils'
+import { formatTimeRemaining, getElectionStatus } from '../lib/utils'
 import { Plus, BarChart3, Users, Settings, TrendingUp, Clock, Share2, Trash2, StopCircle } from 'lucide-react'
 
 export function AdminDashboard() {
@@ -74,15 +74,15 @@ export function AdminDashboard() {
     )
   }
 
-  const runningElections = elections?.data?.filter(election => 
+  const runningElections = elections?.data?.filter((election: any) => 
     getElectionStatus(election.startAt, election.endAt) === 'running'
   ) || []
 
-  const draftElections = elections?.data?.filter(election => 
+  const draftElections = elections?.data?.filter((election: any) => 
     election.status === 'draft'
   ) || []
 
-  const completedElections = elections?.data?.filter(election => 
+  const completedElections = elections?.data?.filter((election: any) => 
     getElectionStatus(election.startAt, election.endAt) === 'ended'
   ) || []
 
@@ -167,7 +167,7 @@ export function AdminDashboard() {
           >
             <h2 className="text-3xl font-bold text-white mb-8">Running Elections</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {runningElections.map((election, index) => (
+              {runningElections.map((election: any, index: number) => (
                 <motion.div
                   key={election._id}
                   initial={{ opacity: 0, y: 30 }}
@@ -247,7 +247,7 @@ export function AdminDashboard() {
           >
             <h2 className="text-3xl font-bold text-white mb-8">Draft Elections</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {draftElections.map((election, index) => (
+              {draftElections.map((election: any, index: number) => (
                 <motion.div
                   key={election._id}
                   initial={{ opacity: 0, y: 30 }}

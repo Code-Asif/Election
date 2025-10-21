@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { QRCodeComponent } from './QRCode'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'

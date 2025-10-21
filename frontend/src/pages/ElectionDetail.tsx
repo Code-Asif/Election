@@ -1,4 +1,4 @@
-import React from 'react'
+ 
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
@@ -9,7 +9,7 @@ import { GlowingCard } from '../components/3d/GlowingCard'
 import { PulseButton } from '../components/3d/PulseButton'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { formatDate, formatTimeRemaining, getElectionStatus } from '../lib/utils'
-import { Clock, Users, Shield, Vote, TrendingUp, Calendar, ArrowLeft } from 'lucide-react'
+import { Clock, Users, Vote, TrendingUp, Calendar, ArrowLeft } from 'lucide-react'
 
 export function ElectionDetail() {
   const { slug } = useParams()
@@ -153,7 +153,7 @@ export function ElectionDetail() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {candidates?.data?.map((candidate, index) => (
+              {candidates?.data?.map((candidate: any, index: number) => (
                 <motion.div
                   key={candidate._id}
                   initial={{ opacity: 0, y: 30 }}
